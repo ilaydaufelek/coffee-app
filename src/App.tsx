@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
+import { useIsMobile } from "./hooks/use-mobile";
 
 export default function App() {
+  const mobil=useIsMobile()
   return (
-    <div className="w-screen h-screen relative overflow-hidden " >
+    <div className="w-screen h-screen relative  " >
     
      
-    <img className="w-full h-full object-fill absolute" src="img3.png" alt="description" />
+   { mobil ? (
+   <img className=" w-full h-full object-center absolute  " src="mobilimg.png" alt="description" />
+   ):(
+    <img className=" w-full h-full object-fill absolute   " src="uıimg.png" alt="description" />
+   )}
     <div className="absolute top-0 left-0 flex gap-2 px-4 py-4 items-center justify-center " >
       <Link to={'#'}>
       <svg 
@@ -22,9 +28,18 @@ export default function App() {
      to={'#'}
       >Contact Us</Link>
       </div>
-     <Link to={'menu'} >
-     <img className="absolute top-1/6 left-1/2  w-[200px] h-[200px]  " src="menu1.png" alt="" />
-     </Link>
+     { mobil ?(
+       <Link className=" absolute w-[90px]  h-[100px] bottom-1/4 right-5  " to={'menu'} >
+
+       </Link>
+
+     ):(
+      <Link className=" absolute w-[150px] px-4  h-[100px] bottom-1/5 right-1/5   " to={'menu'} >
+      </Link>
+
+     )  }
+
+    
     
 </div>
   
