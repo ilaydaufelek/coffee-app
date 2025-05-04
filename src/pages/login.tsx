@@ -1,20 +1,29 @@
-import { register } from "@/firebase";
+
+import { login } from "@/firebase";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
+import { login as loginHandle } from "@/store/auth";
+import { useDispatch} from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-export default function Register() {
+
+
+export default function Login (){
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch =useDispatch() 
+  const navigate=useNavigate()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const user = register(email, password);
-    console.log(user, "user");
-  };
-
+    const user = await login(email, password);
+    dispatch(loginHandle(user))
+    navigate('/management', {replace:true})
+ 
+}
   return (
-  <>
+   <>
     <div className="grid min-h-svh lg:grid-cols-2">
     <div className="flex flex-col gap-4 p-6 md:p-10">
       
@@ -22,7 +31,7 @@ export default function Register() {
         <div className="w-full max-w-xs">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm lg:order-1  ">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900  ">
-       <span  className="text-[#8B4701]"> Coffee time!</span> Are you ready?
+      More coffee? <span className="text-[#8B4701]">Coming right up!</span>
         </h2>
         <div className="mt-10 ">
           <form onSubmit={handleSubmit} className="space-y-6  " action="#" method="POST">
@@ -72,11 +81,11 @@ export default function Register() {
                 disabled={!email || !password}
                 className="flex disabled:bg-[#3f1801be] cursor-pointer  w-full justify-center rounded-md bg-[#3F1801] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                Sign Up
+                Log İn
               </button>
               
             </div>
-            <p className="text-[16px] font-semibold hover:underline text-right text-[#8B4701]" > <Link to='/login'>Log İn</Link></p>
+            <p className="text-[16px] font-semibold hover:underline text-right text-[#8B4701]" > <Link to='/register'>Sign Up </Link></p>
           </form>
         </div>
       </div>
@@ -86,13 +95,16 @@ export default function Register() {
     </div>
     <div className="relative hidden lg:block ">
       <img
-        src="https://videos.openai.com/vg-assets/assets%2Ftask_01jrwr65c4eweb8pht929gb609%2Fimg_0.webp?st=2025-04-15T11%3A06%3A01Z&se=2025-04-21T12%3A06%3A01Z&sks=b&skt=2025-04-15T11%3A06%3A01Z&ske=2025-04-21T12%3A06%3A01Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=8ebb0df1-a278-4e2e-9c20-f2d373479b3a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=SnQ9oHR1AwQYigi%2F6xws3dG16XK8sm3WaS9Io7JJAdc%3D&az=oaivgprodscus"
+        src="https://i.pinimg.com/736x/6c/1e/35/6c1e35d59732b51edb484f5810651023.jpg"
         alt="Image"
         className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] rounded-l-2xl dark:grayscale"
       />
     </div>
+    
   </div>
   <Toaster/>
-  </>
+   </>
+  
   );
+
 }

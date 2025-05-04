@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
-
 import { getAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { toast } from "sonner";
+import { addDoc, collection,    getFirestore, onSnapshot,  } from "firebase/firestore";
+import store from "./store";
+import { setCoffees } from "./store/useCoffeeStore";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY ,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -14,7 +16,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
+const db =getFirestore(app)
 
 const auth =getAuth();
 
@@ -52,7 +54,28 @@ toast((error as Error).message)
   }
  
   }
+  
+  export const addCoffeData = async (data:any)=>{
+    try{
+    const result=  await addDoc(collection(db, 'addedCoffes'),data)
+    console.log(result);
+    
 
+    }catch (error){
+      toast((error as Error).message)
+    }
+  }
+
+  onSnapshot(collection(db, 'addedCoffes'), (snapshot) => {
+    const coffees = snapshot.docs.map((doc) => ({
+      id: doc.id, 
+      ...doc.data()
+    }));
+    store.dispatch(setCoffees(coffees));
+    console.log(coffees);
+    
+  });
+  
 
 
 
