@@ -6,7 +6,7 @@ import { Link, Outlet, useLocation } from "react-router-dom"
 import NavUser from "@/components/navUser"
 
 import { RootState } from "@/store"
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 
 
 
