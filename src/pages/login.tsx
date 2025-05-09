@@ -2,10 +2,11 @@
 import { login } from "@/firebase";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
 import { login as loginHandle } from "@/store/auth";
 import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -14,14 +15,26 @@ export default function Login (){
   const [password, setPassword] = useState("");
   const dispatch =useDispatch() 
   const navigate=useNavigate()
+ 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const user = await login(email, password);
-    dispatch(loginHandle(user))
-    navigate('/management', {replace:true})
- 
-}
+    try {
+      const user = await login(email,password);
+      
+      if (user) {
+        dispatch(loginHandle(user));
+        toast.success('Giriş yapıldı');
+        navigate('/management');
+      } else {
+        toast('Kullanıcı bulunamadı');
+
+      }
+    } catch (error) {
+      toast.error('Giriş başarısız! Lütfen bilgilerinizi kontrol edin.');
+    }
+  };
+
   return (
    <>
     <div className="grid min-h-svh lg:grid-cols-2">
@@ -31,7 +44,7 @@ export default function Login (){
         <div className="w-full max-w-xs">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm lg:order-1  ">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900  ">
-      More coffee? <span className="text-[#8B4701]">Coming right up!</span>
+      More coffee? <span className="text-[#EB9245]">Coming right up!</span>
         </h2>
         <div className="mt-10 ">
           <form onSubmit={handleSubmit} className="space-y-6  " action="#" method="POST">
@@ -50,7 +63,7 @@ export default function Login (){
                 
                 />
                 
-                {email && email.length>12 &&(
+                {email &&  email.includes('@') && email.includes('.com')  && (
                   <div className="text-[#C6852B] absolute right-2 top-2 flex items-center justify-center" > 
                   <svg
                   className="flex items-center justify-center"
@@ -79,13 +92,13 @@ export default function Login (){
               <button
                 type="submit"
                 disabled={!email || !password}
-                className="flex disabled:bg-[#3f1801be] cursor-pointer  w-full justify-center rounded-md bg-[#3F1801] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="flex disabled:bg-[#192738cb] cursor-pointer  w-full justify-center rounded-md bg-[#192738] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 Log İn
               </button>
               
             </div>
-            <p className="text-[16px] font-semibold hover:underline text-right text-[#8B4701]" > <Link to='/register'>Sign Up </Link></p>
+           
           </form>
         </div>
       </div>
@@ -95,7 +108,7 @@ export default function Login (){
     </div>
     <div className="relative hidden lg:block ">
       <img
-        src="https://i.pinimg.com/736x/6c/1e/35/6c1e35d59732b51edb484f5810651023.jpg"
+        src="loginimg.png"
         alt="Image"
         className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] rounded-l-2xl dark:grayscale"
       />

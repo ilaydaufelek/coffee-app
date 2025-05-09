@@ -1,6 +1,6 @@
 import {  useSelector } from "react-redux"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { Calendar, Home, Inbox, Search, Settings, } from "lucide-react"
+import { Home, Inbox, Settings, } from "lucide-react"
 import { Separator } from "@radix-ui/react-separator"
 import { Link, Outlet, useLocation } from "react-router-dom"
 import NavUser from "@/components/navUser"
@@ -20,20 +20,11 @@ const items = [
       icon: Home,
     },
     {
-      title: "Inbox",
-      url: "#",
+      title: "Overview",
+      url: "overview",
       icon: Inbox,
     },
-    {
-      title: "Calendar",
-      url: "#",
-      icon: Calendar,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: Search,
-    },
+    
     {
       title: "Settings",
       url: "settings",

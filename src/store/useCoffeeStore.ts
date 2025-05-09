@@ -5,7 +5,8 @@ interface Coffes{
     id:string,
     price:number,
     img?:string
-    populer:boolean
+    populer:boolean,
+    type:string
     
 }
 interface CoffeesState{

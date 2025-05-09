@@ -1,12 +1,14 @@
 
 import { RootState } from "@/store";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 
 export default function Menu() {
 
     const coffees=useSelector((state:RootState)=>state.coffees.coffees)
-    
+    const [activeType,setActiveType]=useState<'hot' | 'cold' | 'dessert'>('hot')
+    const filterItems=coffees.filter((item)=>item.type === activeType)
     return (
       <div className="relative">
       
@@ -20,8 +22,13 @@ export default function Menu() {
         <div className="flex justify-center mt-[-80px] sm:mt-[-100px] ">
           <div className="bg-white w-[90%] sm:w-[400px] md:w-[600px] lg:w-[1000px] 
             rounded-2xl shadow-lg p-6">
+              <div className="flex items-center justify-center gap-4 mb-4 " >
+              <button onClick={()=>setActiveType('hot')}  className="w-[100px] h-[34px] rounded-md bg-[#976a50] text-white font-semibold cursor-pointer " >Hot</button>
+              <button onClick={()=>setActiveType('cold')} className="w-[100px] h-[34px] rounded-md bg-[#976a50] text-white font-semibold cursor-pointer " >Cold</button>
+              <button onClick={()=>setActiveType('dessert')} className="w-[100px] h-[34px] rounded-md bg-[#976a50] text-white font-semibold cursor-pointer " >Dessert</button>
+              </div>
               <div className="grid grid-cols-1 gap-2  lg:grid lg:grid-cols-3 lg:gap-6    ">
-              {coffees.map(coffee=>(
+              {filterItems.map(coffee=>(
                   <div key={coffee.id} className=" w-[300px] relative my-4 " >
                     <img className="w-full h-[150px] rounded-2xl object-cover " src={coffee.img} alt="" />
                    {coffee.populer && (

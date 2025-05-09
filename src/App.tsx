@@ -36,7 +36,7 @@ export default function App() {
            Menü
           </Button>
         </TooltipTrigger>
-        <TooltipContent className="py-3">
+        <TooltipContent className="py-3 px-4">
           <div className="space-y-2">
             <img
               className=" rounded"
@@ -46,10 +46,10 @@ export default function App() {
               alt="Content image"
             />
             <div className="space-y-1">
-              <p className="text-[13px] font-medium">
+              <p className="text-[13px] font-medium text-[#5c3e2f]">
               Step into Coffee's
               </p>
-              <p className="text-muted-foreground text-xs">
+              <p className=" text-xs text-white">
               Where freshness meets flavor in every bite.
               </p>
             </div>

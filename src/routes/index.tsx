@@ -4,6 +4,7 @@ import Dashboard from "@/pages/AdminDashboard";
 import Login from "@/pages/login";
 import Management from "@/pages/management";
 import Menu from "@/pages/menu";
+import Overview from "@/pages/Overview";
 import Register from "@/pages/register";
 
 import { createBrowserRouter } from "react-router-dom";
@@ -31,7 +32,12 @@ import { createBrowserRouter } from "react-router-dom";
        { 
         path:'settings',
         element:<div>ehehe</div>
-      }
+      },
+     {
+      path:'overview',
+      element:<Overview/>
+     }
+
       ]
       
     },
