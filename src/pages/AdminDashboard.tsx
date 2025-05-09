@@ -11,19 +11,27 @@ export default function Dashboard(){
     const [image ,setImage] =useState('')
     const [price,setPrice] =useState('')
     const [preview, setPreview] = useState<string | null>(null);
+    const [populer,setPopuler]=useState(false)
 
-    const handleSubmit =(e:FormEvent<HTMLFormElement>)=>{
-        e.preventDefault()
-        addCoffeData({
-            name:addCoffe,
-            uid:user,
-            img:image,
-            Price:price
-
-        })
-   
-
-    }
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const data = {
+        name: addCoffe,
+        uid: user,
+        img: image,
+        price: price,
+        populer: populer,
+      };
+  
+      try {
+        await addCoffeData(data); 
+        toast('New product added successfully.'); 
+      } catch (error) {
+        toast.error('Failed to add product.'); 
+      }
+    };
+  
+    
 
     const handleImageChange=(e:ChangeEvent<HTMLInputElement>)=>{
       const url= e.target.value
@@ -99,15 +107,18 @@ export default function Dashboard(){
        className="focus:outline-hidden border border-gray-300 rounded-sm px-2 w-[150px]  "
         type="number" placeholder="Enter price" min="0" step="0.01"/>
        </div>
-       <div className="block text-sm/6 font-medium text-gray-900 lg:mt-2  items-center justify-center " >
-       Is Popular?  <Switch />
-       </div>
+       <button
+       type="button"
+       onClick={()=>setPopuler(prev=>!prev)}
+        className="block text-sm/6 font-medium text-gray-900 lg:mt-2  items-center justify-center " >
+       Is Popular? <Switch/>
+       </button>
        
       
 
             <button 
+            type="submit"
             disabled={!addCoffe || !image || !price}
-            onClick={()=> toast('New product added successfully.')}
              className="bg-indigo-600 rounded-md  py-2 mt-4 px-2  flex items-center disabled:bg-indigo-300 justify-center text-white font-semibold text-[14px] absolute right-0 " > New Product</button>
             
           </form>

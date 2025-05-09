@@ -3,6 +3,7 @@ import  App  from "@/App";
 import Dashboard from "@/pages/AdminDashboard";
 import Login from "@/pages/login";
 import Management from "@/pages/management";
+import Menu from "@/pages/menu";
 import Register from "@/pages/register";
 
 import { createBrowserRouter } from "react-router-dom";
@@ -32,6 +33,12 @@ import { createBrowserRouter } from "react-router-dom";
         element:<div>ehehe</div>
       }
       ]
+      
+    },
+    {
+      path:'menu',
+      element:<Menu/>
+        
     }
 
     
