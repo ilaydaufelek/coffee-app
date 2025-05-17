@@ -33,9 +33,9 @@ export default function App() {
     
      
    { mobil ? (
-   <img className=" w-full h-full object-center absolute  " src="mobilimg.png" alt="description" />
+   <img className=" w-full h-full object-center absolute" src="mobilimg.png" alt="description" />
    ):(
-    <img className=" w-full h-full object-fill absolute   " src={backgrounds} alt="description" />
+    <img className=" w-full h-full object-fill absolute " src={backgrounds} alt="description" />
     
    )}
     <div className="absolute top-0 left-0 flex gap-2 px-4 py-4 items-center justify-center " >
