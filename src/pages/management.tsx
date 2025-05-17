@@ -88,7 +88,7 @@ export default function Management(){
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                 <Link to={'home'}>
-                  <BreadcrumbLink >
+                  <BreadcrumbLink  >
                    Home
                   </BreadcrumbLink>
                   </Link>
@@ -96,7 +96,7 @@ export default function Management(){
                 <BreadcrumbSeparator className="hidden md:block" />
                 { pageName !== 'home' && pageName && (
                   <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href={`/${[...path, pageName].join("/")}`}>
+                  <BreadcrumbLink  href={`/${[...path, pageName].join("/")}`}>
                   {pageName.charAt(0).toUpperCase() + pageName.slice(1)}
                   </BreadcrumbLink>
                 </BreadcrumbItem>

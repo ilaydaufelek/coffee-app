@@ -7,6 +7,7 @@ import Menu from "@/pages/menu";
 import Overview from "@/pages/Overview";
 import Register from "@/pages/register";
 
+
 import { createBrowserRouter } from "react-router-dom";
   const router= createBrowserRouter([
     {
@@ -23,7 +24,7 @@ import { createBrowserRouter } from "react-router-dom";
     },
     {
       path:'/management/',
-      element:<Management/>,
+      element: <Management />,
       children:[
         {
          path:'home',

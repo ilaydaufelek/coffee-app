@@ -2,10 +2,32 @@ import { Link } from "react-router-dom";
 import { useIsMobile } from "./hooks/use-mobile";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip";
 import { Button } from "./components/ui/button";
+import { useEffect, useState } from "react";
 
 
 export default function App() {
-  const mobil=useIsMobile()
+
+  const [backgrounds,setBackgrounds]=useState("uıimg.png")
+   const mobil=useIsMobile()
+ 
+   useEffect(()=>{
+    if(mobil) return;
+
+    const images=["uıimg.png", "Lgimg2.png"]
+    let index=0;
+
+    const interval =setInterval(()=>{
+      index=(index + 1) % images.length
+      setBackgrounds(images[index])
+    },15000)
+
+    return ()=> clearInterval(interval)
+
+
+
+   },[mobil])
+  
+  
   return (
     <div className="w-screen h-screen relative  " >
     
@@ -13,7 +35,8 @@ export default function App() {
    { mobil ? (
    <img className=" w-full h-full object-center absolute  " src="mobilimg.png" alt="description" />
    ):(
-    <img className=" w-full h-full object-fill absolute   " src="uıimg.png" alt="description" />
+    <img className=" w-full h-full object-fill absolute   " src={backgrounds} alt="description" />
+    
    )}
     <div className="absolute top-0 left-0 flex gap-2 px-4 py-4 items-center justify-center " >
       <Link to={'#'}>
@@ -26,7 +49,7 @@ export default function App() {
      fill="currentColor"
       d="M96 64c0-17.7 14.3-32 32-32l320 0 64 0c70.7 0 128 57.3 128 128s-57.3 128-128 128l-32 0c0 53-43 96-96 96l-192 0c-53 0-96-43-96-96L96 64zM480 224l32 0c35.3 0 64-28.7 64-64s-28.7-64-64-64l-32 0 0 128zM32 416l512 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 480c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
       </Link>
-     <Link className="  text-white font-semibold drop-shadow-sm  "  to={'login'} >Login</Link>
+     <Link className="  text-white font-semibold drop-shadow-sm   "  to={'login'} >Login</Link>
      <Link  to={'menu'} >
         
         <TooltipProvider  delayDuration={0}>
@@ -64,7 +87,9 @@ export default function App() {
       >Contact Us</Link>
       </div>
 
-    
+    <div>
+
+    </div>
 
     
     

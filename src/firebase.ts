@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";
 import { toast } from "sonner";
-import { addDoc, collection,    getFirestore, onSnapshot,  } from "firebase/firestore";
+import { addDoc, collection,    doc,    getFirestore, onSnapshot, updateDoc,  } from "firebase/firestore";
 import store from "./store";
 import { setCoffees } from "./store/useCoffeeStore";
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY ,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -32,6 +33,10 @@ toast((error as Error).message)
  
   
 }
+
+
+
+
 
  export const login = async ( email:string, password:string)=>{
  try {
@@ -75,6 +80,16 @@ toast((error as Error).message)
     console.log(coffees);
     
   });
+
+  export const updateCoffeeData=async(id:string , updateData:any)=>{
+    try{
+      const res=doc(db,"addedCoffes",id)
+      await updateDoc(res,updateData)
+    }
+    catch (error){
+      toast((error as Error).message)
+    }
+  }
   
 
 
