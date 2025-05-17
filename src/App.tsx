@@ -47,7 +47,7 @@ export default function App() {
             />
             <div className="space-y-1">
               <p className="text-[13px] font-medium text-[#5c3e2f]">
-              Step into Coffee's
+              Mirebaa
               </p>
               <p className=" text-xs text-white">
               Where freshness meets flavor in every bite.
