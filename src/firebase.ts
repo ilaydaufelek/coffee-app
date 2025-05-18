@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";
 import { toast } from "sonner";
-import { addDoc, collection,    doc,    getFirestore, onSnapshot, updateDoc,  } from "firebase/firestore";
+import { addDoc, collection,    deleteDoc,    doc,    getFirestore, onSnapshot, updateDoc,  } from "firebase/firestore";
 import store from "./store";
 import { setCoffees } from "./store/useCoffeeStore";
 
@@ -91,6 +91,9 @@ toast((error as Error).message)
     }
   }
   
+  export const deleteDocument =async(id:string)=>{
+    await deleteDoc(doc(db,'addedCoffes' ,id))
+  }
 
 
 

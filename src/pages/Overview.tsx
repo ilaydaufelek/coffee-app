@@ -1,38 +1,53 @@
-
-
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { deleteDocument } from "@/firebase"
 import Modal from "@/modals/modal"
 import { RootState } from "@/store"
-
 import { _setModal } from "@/store/modal/action"
 import { useModal } from "@/store/modal/hooks"
-
-
 import {   useSelector } from "react-redux"
 
 export default function Overview() {
  
+   
  
  const modal=useModal()
-console.log("modal:", modal)
+ console.log("modal:", modal)
  
     const coffees=useSelector((state:RootState)=>state.coffees.coffees)
   return (
-    <div className="grid grid-cols-1 gap-2 md:grid md:grid-cols-2 md:gap-4 lg:grid lg:grid-cols-4 lg:gap-6  ">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-6  lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 ">
      {modal.name && <Modal />}
         {coffees.map(item=>(
           
-            <div key={item.id} className=" w-[300px] relative my-4 " >
+            <div key={item.id} className=" max-w-[300px] w-full relative my-4 " >
              
             <img className="w-full h-[150px] rounded-2xl object-cover  " src={item.img} alt="" />
            
-             <button onClick={()=>_setModal('EditModal',item)}
-             className="absolute top-1 right-2 text-white cursor-pointer "
-             type="button" >
-              <svg 
-             width="17" height="17"
-              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-             <path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
-             </button>
+             <div 
+             className="absolute top-1 right-2 text-white cursor-pointer ">
+            
+              <Popover>
+            <PopoverTrigger>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+             <path fill="currentColor" fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12m8.5-4.5A1.5 1.5 0 0 1 12 6h.01a1.5 1.5 0 0 1 1.5 1.5v.01a1.5 1.5 0 0 1-1.5 1.5H12a1.5 1.5 0 0 1-1.5-1.5zm1.5 3a1.5 1.5 0 0 0-1.5 1.5v.01a1.5 1.5 0 0 0 1.5 1.5h.01a1.5 1.5 0 0 0 1.5-1.5V12a1.5 1.5 0 0 0-1.5-1.5zm0 4.5a1.5 1.5 0 0 0-1.5 1.5v.01a1.5 1.5 0 0 0 1.5 1.5h.01a1.5 1.5 0 0 0 1.5-1.5v-.01a1.5 1.5 0 0 0-1.5-1.5z" clip-rule="evenodd"/>
+             </svg>
+             </PopoverTrigger>
+           <PopoverContent className="" >
+            
+              <button className="text-left rounded-md p-1 hover:bg-[#d3d2d2] w-full font-semibold "
+             onClick={()=>_setModal('EditModal',item)} >Edit</button>
+
+            <button onClick={async()=>await deleteDocument(item.id)}
+             className="text-left rounded-md p-1 hover:bg-red-600 w-full hover:text-white font-semibold"
+             >Delete</button>
+             
+
+         
+             </PopoverContent>
+             
+            
+         </Popover>
+             </div>
 
            
            {item.populer && (
