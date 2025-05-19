@@ -110,7 +110,7 @@ const handleSubmit=(e: FormEvent<HTMLFormElement>)=>{
                    
                     
                      type="submit" className="bg-[#212222] text-white px-4 py-2 rounded-lg ">
-                        Kaydet
+                        Update
                     </button>
                   
                 </div>

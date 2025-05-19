@@ -28,11 +28,21 @@ export default function Dashboard(){
         type:type
 
       };
+
+       
     
   
       try {
         await addCoffeData(data); 
         toast('New product added successfully.'); 
+         // Temizleme kısmı
+    setAddCoffe('');
+    setImage('');
+    setPreview(null);
+    setPrice('');
+    setPopuler(false);
+    setType('hot');
+       
       } catch (error) {
         toast.error('Failed to add product.'); 
       }
@@ -73,7 +83,7 @@ export default function Dashboard(){
             
               <input
               onChange={e=>setAddCoffe(e.target.value)}
-               type="text" name="urunadı" id="urunadı" className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6  " placeholder="Cappuccino"/>
+               type="text" value={addCoffe} name="urunadı" id="urunadı" className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6  " placeholder="Cappuccino"/>
             </div>
           </div>
         </div>
@@ -97,6 +107,7 @@ export default function Dashboard(){
                 <label  className=" ">
                  
                   <input type="text" 
+                  value={image}
                     className="focus:outline-hidden border border-gray-300 rounded-sm px-2 "
                     onChange={handleImageChange}
                     placeholder="https://i.pinimg.com/236x/4a/1c/4a/4a1c4a9755e4d3bdfcb45a1c3a58712f.jpg"
@@ -112,16 +123,17 @@ export default function Dashboard(){
         </div>
        <div className="mt-4" >
        <input 
+       value={price}
        onChange={e=>setPrice(e.target.value)}
        className="focus:outline-hidden border border-gray-300 rounded-sm px-2 w-[150px]  "
         type="number" placeholder="Enter price" min="0" step="0.01"/>
        </div>
-       <button
-       type="button"
-       onClick={()=>setPopuler(prev=>!prev)}
-        className="block text-sm/6 font-medium text-gray-900 lg:mt-2  items-center justify-center " >
-       Is Popular? <Switch/>
-       </button>
+     <div className="flex items-center space-x-2 mt-2">
+     <Switch id="populer" checked={populer} onCheckedChange={setPopuler} />
+     <label htmlFor="populer" className="text-sm font-medium text-gray-900">
+    Is Popular?
+     </label>
+      </div>
 
        <RadioGroup 
        onValueChange={setType}

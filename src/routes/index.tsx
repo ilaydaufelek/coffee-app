@@ -32,7 +32,7 @@ import { createBrowserRouter } from "react-router-dom";
         },
        { 
         path:'settings',
-        element:<div>ehehe</div>
+        element:<div>Yapım aşamasında</div>
       },
      {
       path:'overview',

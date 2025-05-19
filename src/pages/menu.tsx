@@ -21,12 +21,29 @@ export default function Menu() {
         
         <div className="flex justify-center mt-[-80px] sm:mt-[-100px] ">
           <div className="bg-white w-[90%] sm:w-[400px] md:w-[600px] lg:w-[1000px] 
-            rounded-2xl shadow-lg p-6">
+            rounded-2xl shadow-lg p-6 relative ">
+              <div className="relative flex items-center justify-center  " >
+                <div className=" m-4 ">
+                  <p className="text-center  text-[2rem] text-[#1b1d1f] font-semibold " >Our Menu</p>
+                <p className="text-center font-medium text-[1rem] text-[#919395] " >
+                   We are delighted to present our fresh and delicious flavors,<br/> 
+                      <span className="" >each crafted with care just for you.</span>
+                </p>
+                </div>
+                <div className="absolute right-1 top-0  md:right-1/3 md:top-bottom md:ml-2 lg:right-1/3  xl:right-1/3 xl:top-bottom xl:mb-4  " >
+                   <img className="w-40 h-20 z-40   " src="vector.svg" alt="" />
+                </div>
+                </div>
               <div className="flex items-center justify-center gap-4 mb-4 " >
-              <button onClick={()=>setActiveType('hot')}  className="w-[100px] h-[34px] rounded-md bg-[#976a50] text-white font-semibold cursor-pointer " >Hot</button>
-              <button onClick={()=>setActiveType('cold')} className="w-[100px] h-[34px] rounded-md bg-[#976a50] text-white font-semibold cursor-pointer " >Cold</button>
-              <button onClick={()=>setActiveType('dessert')} className="w-[100px] h-[34px] rounded-md bg-[#976a50] text-white font-semibold cursor-pointer " >Dessert</button>
+              <button onClick={()=>setActiveType('hot')}  className="w-[100px] h-[34px] rounded-md bg-[#1b1d1f] text-white font-semibold cursor-pointer " >Hot</button>
+              <button onClick={()=>setActiveType('cold')} className="w-[100px] h-[34px] rounded-md bg-[#1b1d1f] text-white font-semibold cursor-pointer " >Cold</button>
+              <button onClick={()=>setActiveType('dessert')} className="w-[100px] h-[34px] rounded-md bg-[#1b1d1f] text-white font-semibold cursor-pointer " >Dessert</button>
+             
               </div>
+               
+              
+               
+             
               <div className="grid grid-cols-1 gap-2  lg:grid lg:grid-cols-3 lg:gap-6    ">
               {filterItems.map(coffee=>(
                   <div key={coffee.id} className=" w-[300px] relative my-4 " >

@@ -1,23 +1,43 @@
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,  AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { deleteDocument } from "@/firebase"
 import Modal from "@/modals/modal"
 import { RootState } from "@/store"
 import { _setModal } from "@/store/modal/action"
 import { useModal } from "@/store/modal/hooks"
+import { useState } from "react"
 import {   useSelector } from "react-redux"
 
 export default function Overview() {
  
-   
+    const coffees=useSelector((state:RootState)=>state.coffees.coffees)
+    const [activeType,setActiveType]=useState<'hot' |'cold' | 'dessert' | 'all'>('all')
+    const filterTypes=activeType=== 'all'? coffees :coffees.filter((item)=>item.type ===activeType)
+    
  
  const modal=useModal()
  console.log("modal:", modal)
  
-    const coffees=useSelector((state:RootState)=>state.coffees.coffees)
+   
   return (
-    <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-6  lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 ">
+    
+   <div className="m-4" >
+    <Select onValueChange={(e)=>setActiveType(e as 'hot' | 'cold' | 'dessert' | 'all')} >
+  <SelectTrigger className="w-[180px]">
+    <SelectValue placeholder="Filter by type" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem  value="hot">Hot</SelectItem>
+    <SelectItem value="cold">Cold</SelectItem>
+    <SelectItem value="dessert">Dessert</SelectItem>
+    <SelectItem value="all">All</SelectItem>
+  </SelectContent>
+</Select>
+     <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-6  lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 ">
+      
      {modal.name && <Modal />}
-        {coffees.map(item=>(
+        {filterTypes.map(item=>(
           
             <div key={item.id} className=" max-w-[300px] w-full relative my-4 " >
              
@@ -36,21 +56,30 @@ export default function Overview() {
             
               <button className="text-left rounded-md p-1 hover:bg-[#d3d2d2] w-full font-semibold "
              onClick={()=>_setModal('EditModal',item)} >Edit</button>
+             <AlertDialog>
+              <div 
+              className="text-left rounded-md p-1 hover:bg-red-600 w-full hover:text-white font-semibold" > 
+              <AlertDialogTrigger>Delete</AlertDialogTrigger></div>
+ 
+          <AlertDialogContent>
+          <AlertDialogHeader>
+           <AlertDialogTitle>Are you absolutely sure you want to delete it?</AlertDialogTitle>
+     
+         </AlertDialogHeader>
+     <AlertDialogFooter>
+      <AlertDialogCancel  >Cancel</AlertDialogCancel>
+       <AlertDialogAction onClick={async()=>await deleteDocument(item.id)} >Delete</AlertDialogAction>
+         </AlertDialogFooter>
+         </AlertDialogContent>
+      </AlertDialog>
+   
+   
+       </PopoverContent>
 
-            <button onClick={async()=>await deleteDocument(item.id)}
-             className="text-left rounded-md p-1 hover:bg-red-600 w-full hover:text-white font-semibold"
-             >Delete</button>
-             
+        </Popover>
 
-         
-             </PopoverContent>
-             
-            
-         </Popover>
              </div>
-
-           
-           {item.populer && (
+            {item.populer && (
              <svg  className="absolute top-1 left-0.5  "
              width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
            <path
@@ -71,6 +100,7 @@ export default function Overview() {
      
     </div>
     
+   </div>
     
   )
 }
