@@ -39,7 +39,7 @@ const items = [
 
 export default function Management(){
   const user = useSelector((state: RootState) => state.auth.user)
-console.log(user,'userr');
+
 
   const location = useLocation()
   const path =location.pathname.split('/').filter(Boolean)
